@@ -30,7 +30,7 @@ $conn->close();
 <html>
 
 <head>
-    <title>Dice Simulator 2015</title>
+    <title>Game - Role o Dado</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
