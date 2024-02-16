@@ -4,7 +4,7 @@ document.getElementById('button').onclick = function () {
     var messageParagraph = document.getElementById('message');
     var betNumber = parseInt(document.getElementById('betNumber').value);
     var betAmount = parseInt(document.getElementById('betAmount').value);
-    var requestId = Date.now(); // Criando um ID único com base no timestamp atual
+    var requestId = Date.now(); 
 
     if (isNaN(betNumber) || isNaN(betAmount)) {
         Swal.fire({
@@ -32,7 +32,6 @@ document.getElementById('button').onclick = function () {
                     icon: 'success',
                     title: 'Parabéns!',
                     text: 'Você ganhou ' + betAmount * 10 + '!',
-                    timer: 1500
                 });
             } else if (response.code == 0) {
                 Swal.fire({
@@ -47,18 +46,16 @@ document.getElementById('button').onclick = function () {
                     icon: 'error',
                     title: 'Oops...',
                     text: 'Saldo insuficiente para realizar a aposta!',
-                    footer: '<a href="#">Por que meu saldo é insuficiente?</a>',
+                    footer: '<a href="AddFunds.php">Adicione Saldo!</a>',
 
                 });
             }
-
             messageParagraph.textContent = message;
-            balanceParagraph.textContent = "Saldo: " + newBalance;
+            balanceParagraph.textContent = "Saldo: R$ " + newBalance;
             document.getElementById('placeholder').textContent = result;
         }
     };
 
-    // Envia o número escolhido pelo usuário, o valor da aposta e o ID da requisição
     xhr.send("userNumber=" + betNumber + "&betAmount=" + betAmount + "&requestId=" + requestId);
 };
 
@@ -69,6 +66,7 @@ function validateNumber(input) {
         input.value = 6;
     }
 }
+
 function validateAmount(input) {
     if (input.value < 1) {
         input.value = 1;
