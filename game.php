@@ -28,15 +28,17 @@ $conn->close();
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Game - Role o Dado</title>
     <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
-    <div class="navbar">
-        <a href="#">Página Inicial</a>
-        <a href="#">Perfil</a>
+    <div class="navbar1">
+        <a href="game">Página Inicial</a>
+        <a href="profile">Perfil</a>
         <div class="sair">
             <a href="logout">Sair</a>
         </div>
@@ -65,9 +67,4 @@ $conn->close();
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="script.js"></script>
 </body>
-
-</body>
-
-</body>
-
 </html>

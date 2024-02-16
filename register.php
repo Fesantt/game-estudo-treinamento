@@ -1,5 +1,7 @@
 <?php
-include_once 'conexao';
+include_once 'conexao.php';
+
+$response = array();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $phone = $_POST["phone"];
@@ -7,17 +9,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "SELECT * FROM usuarios WHERE celular = '$phone'";
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) > 0) {
-        $error = "O telefone já está em uso";
+        $response["error"] = "O telefone ja esta em uso";
     } else {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
         $sql = "INSERT INTO usuarios (celular, senha) VALUES ('$phone', '$hashed_password')";
         if (mysqli_query($conn, $sql)) {
-            header("Location: login");
-            exit();
+            $response["success"] = "Usuário registrado com sucesso";
         } else {
-            $error = "Erro ao registrar usuário";
+            $response["error"] = "Erro ao registrar usuário";
         }
     }
+    echo json_encode($response);
 }
 ?>

@@ -12,17 +12,13 @@ if ($conn->connect_error) {
 }
 
 $phone = $_SESSION['phone'];
-$sql = "SELECT saldo FROM usuarios WHERE celular = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $phone);
-$stmt->execute();
-$result = $stmt->get_result();
 
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $_SESSION['balance'] = $row['saldo'];
+
+if (isset($_SESSION['phone'])) {
+    $userCelular = $_SESSION['phone'];
 } else {
-    $_SESSION['balance'] = 0;
+    // Lidar com o caso em que o número de celular não está definido
+    $userCelular = '';
 }
 
 $userNumber = isset($_POST['userNumber']) ? intval($_POST['userNumber']) : 0;
@@ -52,12 +48,20 @@ if ($_SESSION['balance'] >= $betAmount) {
     $code = -1;
 }
 
+// Atualizar o saldo no banco de dados
 $updateSql = "UPDATE usuarios SET saldo = ? WHERE celular = ?";
 $updateStmt = $conn->prepare($updateSql);
 $updateStmt->bind_param("is", $_SESSION['balance'], $phone);
 $updateStmt->execute();
+$requestId = $_POST['requestId'];
+// Inserir dados na tabela NovaNova
+$insertSql = "INSERT INTO jogadas (betAmount, id, RandomNumber, requestId, userCelular, userNumber) VALUES (?, ?, ?, ?, ?, ?)";
+$insertStmt = $conn->prepare($insertSql);
+$insertStmt->bind_param("iissss", $betAmount, $id, $randomNumber, $requestId, $userCelular, $userNumber);
 
-// Reinicie a contagem de turnos se o usuário ganhou
+// Executar a inserção
+$insertStmt->execute();
+
 if ($code === 1) {
     $_SESSION['turn'] = 0;
 }

@@ -37,7 +37,12 @@ $(document).ready(function() {
             url: "register",
             data: formData,
             success: function(response) {
-                alert(response); 
+                if (response.status === 'success') {
+                    alert("Usuário criado com sucesso!");
+                    window.location.href = "login";
+                } else {
+                    alert("Ocorreu um erro: " + response.message);
+                }
             }
         });
     });
