@@ -2,9 +2,18 @@ $(document).ready(function() {
     $("#loginFormAjax").submit(function(event) {
         event.preventDefault(); 
 
+        var phone = $("#loginPhone").val();
+        var password = $("#loginPassword").val();
+
+
+        if(phone === '' || password === '') {
+            alert("Por favor, preencha todos os campos.");
+            return;
+        }
+
         var formData = {
-            phone: $("#loginPhone").val(),
-            password: $("#loginPassword").val()
+            phone: phone,
+            password: password
         };
 
         $.ajax({
@@ -24,25 +33,38 @@ $(document).ready(function() {
             }
         });
     });
+
     $("#registerFormAjax").submit(function(event) {
         event.preventDefault(); 
 
+        var phone = $("#registerPhone").val();
+        var password = $("#registerPassword").val();
+
+        if(phone === '' || password === '') {
+            alert("Por favor, preencha todos os campos.");
+            return;
+        }
+
         var formData = {
-            phone: $("#registerPhone").val(),
-            password: $("#registerPassword").val()
+            phone: phone,
+            password: password
         };
 
         $.ajax({
             type: "POST",
             url: "register",
             data: formData,
+            dataType: 'json', 
             success: function(response) {
-                if (response.status === 'success') {
-                    alert("Usuário criado com sucesso!");
-                    window.location.href = "login";
+                if (response.success) {
+                    alert(response.success); 
+                    window.location.href = "index";
                 } else {
-                    alert("Ocorreu um erro: " + response.message);
+                    alert("Ocorreu um erro: " + response.error);
                 }
+            },
+            error: function(xhr, status, error) {
+                alert("Ocorreu um erro na requisição: " + error);
             }
         });
     });
