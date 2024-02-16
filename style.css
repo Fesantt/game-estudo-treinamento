@@ -1,0 +1,65 @@
+* {
+    font-family: Helvetica, Arial, sans-serif;
+    text-align: center;
+}
+
+button {
+    background-color: rgb(82, 186, 179);
+    border-radius: 6px;
+    border: none;
+    color: rgb(255, 255, 255);
+    padding: 10px;
+    text-transform: uppercase;
+    width: 200px;
+    cursor: pointer;
+}
+#placeholder {
+    height: 100px;
+    width: 100px;
+    padding: 50px;
+    margin: 50px auto;
+    border: 1px solid gray;
+    border-radius: 10px;
+    font-size: 80px;
+}
+.navbar {
+    background-color: #333;
+    overflow: hidden;
+}
+.navbar a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+}
+.navbar a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.saldo {
+    float: right;
+}
+
+.sair {
+    float: right;
+}
+
+#balance {
+    color: #ffffff;
+    margin-right: 15px;
+    font-size: 14px;
+}
+
+.inputs {
+    margin: 10px;
+}
+#betNumber,
+#betAmount {
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid;
+    width: 200px;
+}
