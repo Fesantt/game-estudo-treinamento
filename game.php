@@ -1,6 +1,8 @@
 <?php
 include_once 'conexao.php';
 session_start();
+
+//obtem saldo do usuario
 if (!isset($_SESSION['phone'])) {
     header("Location: index.php");
     exit();
