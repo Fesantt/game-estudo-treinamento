@@ -4,7 +4,7 @@ session_start();
 
 //obtem saldo do usuario
 if (!isset($_SESSION['phone'])) {
-    header("Location: index.php");
+    header("Location: index");
     exit();
 }
 if ($conn->connect_error) {
@@ -28,7 +28,6 @@ $conn->close();
 ?>
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Game - Role o Dado</title>
     <link rel="stylesheet" href="style.css">
@@ -39,7 +38,7 @@ $conn->close();
         <a href="#">Página Inicial</a>
         <a href="#">Perfil</a>
         <div class="sair">
-            <a href="logout.php">Sair</a>
+            <a href="logout">Sair</a>
         </div>
         <div class="saldo">
             <p id="balance">Saldo: R$
