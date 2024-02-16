@@ -74,6 +74,9 @@ $conn->close();
                     <tr>
                         <th scope="col">Jogada</th>
                         <th scope="col">Aposta</th>
+                        <th scope="col">Seu Nº</th>
+                        <th scope="col">Nº Sorteado</th>
+                        <th scope="col">Resultado</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -81,6 +84,9 @@ $conn->close();
                         <tr>
                             <td><?= $jogada['requestId'] ?></td>
                             <td><?= 'R$ ' . $jogada['betAmount'] . ',00' ?></td>
+                            <td><?= $jogada['userNumber'] ?></td>
+                            <td><?= $jogada['RandomNumber'] ?></td>
+                            <td><?=$jogada['winAmount'] ?></td>
                         </tr>
                     <?php endforeach; ?>
                     <?php if (empty($jogadas)): ?>

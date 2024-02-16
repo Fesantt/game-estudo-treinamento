@@ -3,7 +3,7 @@ include_once 'conexao.php';
 session_start();
 
 if (!isset($_SESSION['phone'])) {
-    header("Location: index");
+    header("Location: index.php");
     exit();
 }
 
@@ -13,33 +13,28 @@ if ($conn->connect_error) {
 
 $phone = $_SESSION['phone'];
 
-
-if (isset($_SESSION['phone'])) {
-    $userCelular = $_SESSION['phone'];
-} else {
-    // Lidar com o caso em que o número de celular não está definido
-    $userCelular = '';
+if (!isset($_SESSION['balance'])) {
+    $_SESSION['balance'] = 0;
 }
+
+$userCelular = isset($_SESSION['phone']) ? $_SESSION['phone'] : '';
 
 $userNumber = isset($_POST['userNumber']) ? intval($_POST['userNumber']) : 0;
 $betAmount = isset($_POST['betAmount']) ? intval($_POST['betAmount']) : 0;
 $turn = isset($_SESSION['turn']) ? $_SESSION['turn'] : 0;
 $_SESSION['turn'] = ++$turn;
 
-if ($_SESSION['balance'] >= $betAmount) {
-    if ($turn == 50) {
-        $randomNumber = $userNumber;
-    } else {
-        $randomNumber = rand(1, 6);
-    }
+$randomNumber = rand(1, 6);
 
-    if (($turn >= 3 && $turn <= 30) && ($randomNumber == $userNumber)) { 
+if ($_SESSION['balance'] >= $betAmount) {
+    if ($randomNumber == $userNumber) { 
         $_SESSION['balance'] += $betAmount * 10;
-        $message = "Parabéns! Você ganhou " . $betAmount * 10 . "!";
+        $message = "Ganhou R$ " . $betAmount * 10 . "!";
         $code = 1;
+        $_SESSION['turn'] = 0;
     } else {
         $_SESSION['balance'] -= $betAmount;
-        $message = "Tente novamente!";
+        $message = "Você perdeu!";
         $code = 0;
     }
 } else {
@@ -48,22 +43,17 @@ if ($_SESSION['balance'] >= $betAmount) {
     $code = -1;
 }
 
-// Atualizar o saldo no banco de dados
 $updateSql = "UPDATE usuarios SET saldo = ? WHERE celular = ?";
 $updateStmt = $conn->prepare($updateSql);
 $updateStmt->bind_param("is", $_SESSION['balance'], $phone);
 $updateStmt->execute();
-$requestId = $_POST['requestId'];
-// Inserir dados na tabela NovaNova
-$insertSql = "INSERT INTO jogadas (betAmount, id, RandomNumber, requestId, userCelular, userNumber) VALUES (?, ?, ?, ?, ?, ?)";
-$insertStmt = $conn->prepare($insertSql);
-$insertStmt->bind_param("iissss", $betAmount, $id, $randomNumber, $requestId, $userCelular, $userNumber);
 
-// Executar a inserção
-$insertStmt->execute();
-
-if ($code === 1) {
-    $_SESSION['turn'] = 0;
+if(isset($randomNumber)) {
+    $requestId = $_POST['requestId'];
+    $insertSql = "INSERT INTO jogadas (betAmount, RandomNumber, requestId, userCelular, userNumber, winAmount) VALUES (?, ?, ?, ?, ?, ?)";
+    $insertStmt = $conn->prepare($insertSql);
+    $insertStmt->bind_param("iissss", $betAmount, $randomNumber, $requestId, $userCelular, $userNumber, $message);
+    $insertStmt->execute();
 }
 
 $conn->close();
