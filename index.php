@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+// Verificar se o usuário já está logado
+if (isset($_SESSION['phone'])) {
+    header("Location: game"); // Redirecionar para a página game se o usuário já estiver logado
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

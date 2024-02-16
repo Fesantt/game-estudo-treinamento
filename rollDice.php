@@ -3,7 +3,7 @@ include_once 'conexao.php';
 session_start();
 
 if (!isset($_SESSION['phone'])) {
-    header("Location: index.php");
+    header("Location: index");
     exit();
 }
 

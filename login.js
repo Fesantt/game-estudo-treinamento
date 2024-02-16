@@ -9,12 +9,12 @@ $(document).ready(function() {
 
         $.ajax({
             type: "POST",
-            url: "login.php",
+            url: "login",
             data: formData,
             dataType: 'json', 
             success: function(response) {
                 if (response.status === 'success') {
-                    window.location.href = "game.php";
+                    window.location.href = "game";
                 } else {
                     alert("Ocorreu um erro: " + response.message);
                 }
@@ -34,7 +34,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: "POST",
-            url: "register.php",
+            url: "register",
             data: formData,
             success: function(response) {
                 alert(response); 

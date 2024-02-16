@@ -17,7 +17,7 @@ document.getElementById('button').onclick = function () {
     }
 
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "rollDice.php", true);
+    xhr.open("POST", "rollDice", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
     xhr.onreadystatechange = function () {
@@ -46,7 +46,7 @@ document.getElementById('button').onclick = function () {
                     icon: 'error',
                     title: 'Oops...',
                     text: 'Saldo insuficiente para realizar a aposta!',
-                    footer: '<a href="AddFunds.php">Adicione Saldo!</a>',
+                    footer: '<a href="AddFunds">Adicione Saldo!</a>',
 
                 });
             }

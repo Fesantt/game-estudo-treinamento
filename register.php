@@ -1,5 +1,5 @@
 <?php
-include_once 'conexao.php';
+include_once 'conexao';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $phone = $_POST["phone"];
@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $sql = "INSERT INTO usuarios (celular, senha) VALUES ('$phone', '$hashed_password')";
         if (mysqli_query($conn, $sql)) {
-            header("Location: login.php");
+            header("Location: login");
             exit();
         } else {
             $error = "Erro ao registrar usuário";
