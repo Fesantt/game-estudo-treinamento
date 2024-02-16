@@ -7,7 +7,6 @@ if (!isset($_SESSION['phone'])) {
     exit();
 }
 
-
 if ($conn->connect_error) {
     die("Conexão falhou: " . $conn->connect_error);
 }
@@ -32,13 +31,13 @@ $turn = isset($_SESSION['turn']) ? $_SESSION['turn'] : 0;
 $_SESSION['turn'] = ++$turn;
 
 if ($_SESSION['balance'] >= $betAmount) {
-    if ($turn == 5) {
+    if ($turn == 50) {
         $randomNumber = $userNumber;
     } else {
         $randomNumber = rand(1, 6);
     }
 
-    if (($turn >= 30 && $turn <= 50) && ($randomNumber == $userNumber)) { 
+    if (($turn >= 3 && $turn <= 30) && ($randomNumber == $userNumber)) { 
         $_SESSION['balance'] += $betAmount * 10;
         $message = "Parabéns! Você ganhou " . $betAmount * 10 . "!";
         $code = 1;
@@ -57,6 +56,11 @@ $updateSql = "UPDATE usuarios SET saldo = ? WHERE celular = ?";
 $updateStmt = $conn->prepare($updateSql);
 $updateStmt->bind_param("is", $_SESSION['balance'], $phone);
 $updateStmt->execute();
+
+// Reinicie a contagem de turnos se o usuário ganhou
+if ($code === 1) {
+    $_SESSION['turn'] = 0;
+}
 
 $conn->close();
 
