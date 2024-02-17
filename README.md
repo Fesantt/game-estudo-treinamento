@@ -1,4 +1,12 @@
 Projeto para fins de estudo.
+
+Para testar basta configurar a conexão com o banco de dados no arquivo conexao.php
+e cadastrar um novo usuaáio.
+-----------------------------------------------------------------------------------------------
+To test, simply configure the connection to the database in the conexao.php file
+and register a new user.
+
+Preview
 Login  page
 ![image](https://github.com/Fesantt/game-estudo-treinamento/assets/33626716/bb271124-447d-41a9-b32a-5e19473dd0e4)
 
