@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
 -- version 5.2.1
--- https://wwwmyadmin.net/
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 16/02/2024 às 14:36
+-- Tempo de geração: 17/02/2024 às 01:32
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -24,6 +24,22 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estrutura para tabela `jogadas`
+--
+
+CREATE TABLE `jogadas` (
+  `id` int(11) NOT NULL,
+  `userNumber` varchar(255) NOT NULL,
+  `betAmount` varchar(255) NOT NULL,
+  `requestId` varchar(255) NOT NULL,
+  `userCelular` varchar(111) NOT NULL,
+  `RandomNumber` varchar(111) NOT NULL,
+  `winAmount` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para tabela `usuarios`
 --
 
@@ -35,15 +51,14 @@ CREATE TABLE `usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `usuarios`
---
-
-INSERT INTO `usuarios` (`id`, `saldo`, `celular`, `senha`) VALUES
-(1, 628, '67996758663', '$2y$10$pxPPH2AmVBGeyj3v8UXElOoVQ.ftWWG/W4H.oV9.3hQWsJoDpeQx.');
-
---
 -- Índices para tabelas despejadas
 --
+
+--
+-- Índices de tabela `jogadas`
+--
+ALTER TABLE `jogadas`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Índices de tabela `usuarios`
@@ -56,10 +71,16 @@ ALTER TABLE `usuarios`
 --
 
 --
+-- AUTO_INCREMENT de tabela `jogadas`
+--
+ALTER TABLE `jogadas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2050;
+
+--
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
